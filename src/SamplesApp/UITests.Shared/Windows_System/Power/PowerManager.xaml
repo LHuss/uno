@@ -10,6 +10,9 @@
 	d:DesignWidth="400">
 
 	<StackPanel>
+        <Button x:Name="refresh"
+                            Content="Manual Refresh"
+                            Click="OnRefresh" />
 		<TextBlock Text="Battery status" FontWeight="Bold" />
 		<TextBlock x:Name="BatteryStatusOutput" />
 		<TextBlock Text="Energy saver status" FontWeight="Bold" />

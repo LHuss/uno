@@ -17,6 +17,12 @@ namespace Uno.Helpers
         [DllImport(IOKitLibrary)]
         static extern uint IOPMAssertionRelease(uint id);
 
+        [DllImport(IOKitLibrary)]
+        static extern uint IOPSCopyPowerSourcesInfo();
+
+        [DllImport(IOKitLibrary)]
+        static extern uint IOPSCopyPowerSourcesList(uint blob);
+
         internal static bool PreventUserIdleDisplaySleep(CFString name, out uint id)
         {
             var result = IOPMAssertionCreateWithName(
@@ -34,6 +40,13 @@ namespace Uno.Helpers
         {
             var result = IOPMAssertionRelease(id);
             return result == 0;
+        }
+
+        internal static object CopyPowerSourceInfo()
+        {
+            var blob = IOPSCopyPowerSourcesInfo();
+            var info = IOPSCopyPowerSourcesList(blob);
+            return info;
         }
     }
 }

@@ -37,6 +37,10 @@ namespace UITests.Shared.Windows_System.Power
 			PowerSupplyStatusOuptut.Text = UwpPowerManager.PowerSupplyStatus.ToString();
 		}
 
+        private void OnRefresh(object sender, object e) {
+            UwpPowerManager.Refresh();
+        }
+
 		private async void UwpPowerManager_PowerSupplyStatusChanged(object sender, object e)
 		{
 			await ExecuteOnUiThreadAsync(() =>
