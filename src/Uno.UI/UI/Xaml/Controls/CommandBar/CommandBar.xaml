@@ -117,9 +117,11 @@
 	<Style x:Key="XamlDefaultCommandBar_EllipsisButton"
 				   TargetType="Button">
 		<Setter Property="Background"
-				Value="Transparent" />
+				Value="{ThemeResource AppBarEllipsisButtonBackground}" />
 		<Setter Property="Foreground"
-				Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+				Value="{ThemeResource AppBarEllipsisButtonForeground}" />
+		<Setter Property="BorderBrush"
+				Value="{ThemeResource AppBarEllipsisButtonBorderBrush}" />
 		<Setter Property="BorderThickness"
 				Value="0" />
 		<Setter Property="Padding"
@@ -141,7 +143,7 @@
 		<Setter Property="Width"
 				Value="{ThemeResource AppBarExpandButtonThemeWidth}" />
 		<Setter Property="UseSystemFocusVisuals"
-				Value="True" />
+				Value="{StaticResource UseSystemFocusVisuals}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -154,13 +156,18 @@
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
 																	   Storyboard.TargetProperty="Background">
 											<DiscreteObjectKeyFrame KeyTime="0"
-																	Value="{ThemeResource SystemControlHighlightListLowBrush}" />
+																	Value="{ThemeResource AppBarEllipsisButtonBackgroundPointerOver}" />
 										</ObjectAnimationUsingKeyFrames>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
 																	   Storyboard.TargetProperty="Foreground">
 											<DiscreteObjectKeyFrame KeyTime="0"
-																	Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+																	Value="{ThemeResource AppBarEllipsisButtonForegroundPointerOver}" />
 										</ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" 
+																	   Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" 
+																	Value="{ThemeResource AppBarEllipsisButtonBorderBrushPointerOver}" />
+                                        </ObjectAnimationUsingKeyFrames>
 									</Storyboard>
 								</VisualState>
 								<VisualState x:Name="Pressed">
@@ -168,8 +175,18 @@
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
 																	   Storyboard.TargetProperty="Background">
 											<DiscreteObjectKeyFrame KeyTime="0"
-																	Value="{ThemeResource SystemControlHighlightListMediumBrush}" />
+																	Value="{ThemeResource AppBarEllipsisButtonBackgroundPressed}" />
 										</ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" 
+																	   Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" 
+																	Value="{ThemeResource AppBarEllipsisButtonForegroundPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" 
+																	   Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" 
+																	Value="{ThemeResource AppBarEllipsisButtonBorderBrushPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
 									</Storyboard>
 								</VisualState>
 								<VisualState x:Name="Disabled">
@@ -205,9 +222,9 @@
 	<Style x:Key="XamlDefaultCommandBar"
 					TargetType="CommandBar">
 		<Setter Property="Background"
-				Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
+				Value="{ThemeResource CommandBarBackground}" />
 		<Setter Property="Foreground"
-				Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+				Value="{ThemeResource CommandBarForeground}" />
 		<Setter Property="IsTabStop"
 				Value="False" />
 		<Setter Property="VerticalAlignment"
@@ -220,11 +237,12 @@
 				Value="Top" />
 		<Setter Property="ClosedDisplayMode"
 				Value="Compact" />
+        <Setter Property="ExitDisplayModeOnAccessKeyInvoked" 
+				Value="False" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="CommandBar">
-					<Grid x:Name="LayoutRoot"
-						  Background="{TemplateBinding Background}">
+					<Grid x:Name="LayoutRoot">
 						<VisualStateManager.VisualStateGroups>
 							<VisualStateGroup x:Name="CommonStates">
 								<VisualState x:Name="Normal" />
@@ -1361,10 +1379,12 @@
 							  Margin="{TemplateBinding Padding}"
 							  Height="{TemplateBinding Height}"
 							  Background="{TemplateBinding Background}"
-							  Opacity="{TemplateBinding Opacity}">
+                         	  MinHeight="{ThemeResource AppBarThemeCompactHeight}"
+							  XYFocusKeyboardNavigation="Enabled">
 
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 
@@ -1479,4 +1499,61 @@
 	<Style TargetType="CommandBar"
 		   BasedOn="{StaticResource XamlDefaultCommandBar}" />
 
+	
+    <Style TargetType="CommandBarOverflowPresenter">
+        <Setter Property="Background" Value="{ThemeResource CommandBarOverflowPresenterBackground}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CommandBarOverflowPresenterBorderBrush}" />
+        <Setter Property="Padding" Value="{ThemeResource CommandBarOverflowPresenterBorderPadding}" />
+        <Setter Property="MaxWidth" Value="{ThemeResource CommandBarOverflowMaxWidth}" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="AllowFocusOnInteraction" Value="False" />
+        <Setter Property="TabNavigation" Value="Once" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CommandBarOverflowPresenter">
+                    <Grid x:Name="LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BackgroundSizing="OuterBorderEdge"
+                        Padding="{TemplateBinding Padding}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{ThemeResource CommandBarOverflowPresenterBorderThickness}">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="DisplayModeStates">
+                                <VisualState x:Name="DisplayModeDefault" />
+                                <VisualState x:Name="FullWidthOpenDown">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Padding" Value="{ThemeResource CommandBarOverflowPresenterBorderDownPadding}" />
+                                        <Setter Target="LayoutRoot.BorderThickness" Value="{ThemeResource CommandBarOverflowPresenterBorderDownThickness}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="FullWidthOpenUp">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Padding" Value="{ThemeResource CommandBarOverflowPresenterBorderUpPadding}" />
+                                        <Setter Target="LayoutRoot.BorderThickness" Value="{ThemeResource CommandBarOverflowPresenterBorderUpThickness}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+
+                        </VisualStateManager.VisualStateGroups>
+                        <ScrollViewer HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                            HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                            VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                            ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                            AutomationProperties.AccessibilityView="Raw">
+                            <ItemsPresenter x:Name="ItemsPresenter" Margin="{ThemeResource CommandBarOverflowPresenterMargin}" />
+                        </ScrollViewer>
+
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

@@ -76,6 +76,15 @@
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="8" />
             </Style>
+
+            <!-- Command Bar Testing -->
+            <SolidColorBrush x:Key="CommandBarForeground" Color="Red"/>
+            <SolidColorBrush x:Key="AppBarEllipsisButtonForeground" Color="Green"/>
+            <SolidColorBrush x:Key="AppBarEllipsisButtonForegroundPointerOver" Color="Orange"/>
+            <SolidColorBrush x:Key="AppBarEllipsisButtonForegroundPressed" Color="Blue"/>
+            <SolidColorBrush x:Key="AppBarButtonForeground" Color="Green"/>
+            <SolidColorBrush x:Key="AppBarButtonForegroundPointerOver" Color="Cyan"/>
+            <SolidColorBrush x:Key="AppBarButtonForegroundPressed" Color="White"/>
         </ResourceDictionary>
 
     </Application.Resources>

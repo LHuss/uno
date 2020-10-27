@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Uno.UI;
 using static System.Math;
 using static Uno.UI.LayoutHelper;
+using Windows.UI.Xaml.Controls;
 
 namespace Windows.UI.Xaml
 {
@@ -112,6 +113,36 @@ namespace Windows.UI.Xaml
 
 			// DesiredSize must include margins
 			SetDesiredSize(clippedDesiredSize);
+
+			if (this is PopupRoot)
+			{
+				;
+			}
+			else if (this is PopupPanel)
+			{
+				;
+			}
+			else if (Name == "OverflowContentRoot")
+			{
+				;
+			}
+			else if (this is CommandBarOverflowPresenter)
+			{
+				;
+			}
+			else if (Name == "SignOut")
+			{
+				;
+			}
+			else if (Name=="ContentRoot") {
+				;
+			}
+
+
+			else if (this is AppBarButton test && (test.Name == "Sign Out" || test.Name == "About"))
+			{
+				;
+			}
 
 			_logDebug?.Debug($"{DepthIndentation}[{FormatDebugName()}] Measure({Name}/{availableSize}/{Margin}) = {clippedDesiredSize} _unclippedDesiredSize={_unclippedDesiredSize}");
 		}
@@ -275,6 +306,15 @@ namespace Windows.UI.Xaml
 			}
 
 			OnLayoutUpdated();
+
+			if (this is PopupRoot)
+			{
+				;
+			}
+			else if (this is AppBarButton test && (test.Name == "Sign Out" || test.Name == "About"))
+			{
+				;
+			}
 		}
 
 		/// <summary>

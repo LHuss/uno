@@ -52,7 +52,7 @@ namespace Windows.UI.Xaml.Controls
 
 			Loaded += (s, e) => RegisterEvents();
 			Unloaded += (s, e) => UnregisterEvents();
-			SizeChanged += (s, e) => _contentHeight = e.NewSize.Height;
+			SizeChanged += (s, e) => OnSizeChanged(s, e);
 
 			this.RegisterPropertyChangedCallback(IsEnabledProperty, (s, e) => UpdateCommonState());
 			this.RegisterPropertyChangedCallback(ClosedDisplayModeProperty, (s, e) => UpdateDisplayModeState());
@@ -101,11 +101,38 @@ namespace Windows.UI.Xaml.Controls
 			UpdateButtonsIsCompact();
 		}
 
+		protected void OnSizeChanged(object s, SizeChangedEventArgs e)
+		{
+			_contentHeight = e.NewSize.Height;
+
+			if (e.OriginalSource is UIElement fe)
+			{
+				var clip = fe.Clip;
+				if (clip != null)
+				{
+					var rect = clip.Rect;
+					if (clip.Transform != null)
+					{
+						rect = clip.Transform.TransformBounds(rect);
+					}
+					// CommandBarTemplateSettings.OverflowContentClipRect = rect;
+				}
+			}
+			UpdateTemplateSettings();
+		}
+
 		private void UpdateTemplateSettings()
 		{
+			var width = RenderSize.Width;
+			var height = RenderSize.Height + 50;
 			CommandBarTemplateSettings.ContentHeight = _contentHeight;
-			CommandBarTemplateSettings.OverflowContentMinWidth = RenderSize.Width;
-			CommandBarTemplateSettings.OverflowContentMaxWidth = RenderSize.Width;
+			CommandBarTemplateSettings.OverflowContentMinWidth = width;
+			CommandBarTemplateSettings.OverflowContentMaxWidth = width;
+			CommandBarTemplateSettings.OverflowContentMaxHeight = height;
+			CommandBarTemplateSettings.OverflowContentClipRect = new Rect(0, 0, width, height);
+			CommandBarTemplateSettings.OverflowContentHeight = height;
+			CommandBarTemplateSettings.NegativeOverflowContentHeight = -height;
+			CommandBarTemplateSettings.OverflowContentHorizontalOffset = 0.0;
 		}
 
 		private void RegisterEvents()
@@ -201,7 +228,6 @@ namespace Windows.UI.Xaml.Controls
 			set => SetValue(CommandBarOverflowPresenterStyleProperty, value);
 		}
 
-		[Uno.NotImplemented]
 		public static DependencyProperty CommandBarOverflowPresenterStyleProperty { get; } =
 			DependencyProperty.Register(
 				"CommandBarOverflowPresenterStyle",

@@ -17,7 +17,7 @@ namespace Windows.UI.Xaml
 		private static ConditionalWeakTable<object, AttachedDependencyObject> _objectData
 			= new ConditionalWeakTable<object, AttachedDependencyObject>();
 
-		private static DependencyObjectStore GetStore(object instance)
+		internal static DependencyObjectStore GetStore(object instance)
 		{
 			if (instance is IDependencyObjectStoreProvider provider)
 			{

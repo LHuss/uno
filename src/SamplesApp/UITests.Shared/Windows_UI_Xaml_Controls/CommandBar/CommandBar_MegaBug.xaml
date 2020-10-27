@@ -1,0 +1,88 @@
+﻿<Page
+    x:Class="Uno.UI.Samples.Content.UITests.CommandBar.CommandBar_MegaBug"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Uno.UI.Samples.Content.UITests.CommandBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState>
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="500" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="req11.FontSize" Value="30" />
+						<Setter Target="req12.FontSize" Value="30" />
+						<Setter Target="req13.FontSize" Value="30" />
+						<Setter Target="req21.FontSize" Value="30" />
+						<Setter Target="req22.FontSize" Value="30" />
+						<Setter Target="req23.FontSize" Value="30" />
+						<Setter Target="req3.FontSize" Value="30" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<!--TitlePanel contains the name of the application and page title-->
+		<Border Grid.Row="0" CornerRadius="4" BorderBrush="DarkGray" BorderThickness="2"
+				Padding="8"
+				Background="#FF00335B">
+			<Grid HorizontalAlignment="Stretch">
+				<StackPanel>
+					<TextBlock Text="A test App" Margin="0,0,0,0" FontWeight="SemiBold"
+							   Foreground="Black"
+							   FontSize="24" />
+				</StackPanel>
+
+				<CommandBar Margin="12,0,0,0" HorizontalAlignment="Right" Background="Transparent">
+					<CommandBar.Resources>
+					</CommandBar.Resources>
+					<CommandBar.CommandBarOverflowPresenterStyle>
+						<Style TargetType="CommandBarOverflowPresenter">
+							<Setter Property="Background" Value="#FF00335B" />
+						</Style>
+					</CommandBar.CommandBarOverflowPresenterStyle>
+					<CommandBar.PrimaryCommands>
+						<AppBarButton Icon="Setting" Label="Settings" Click="b1Click" />
+						<AppBarButton Label="Set Group" Click="b2Click">
+							<AppBarButton.Icon>
+								<BitmapIcon UriSource="ms-appx:///Assets/PersonPicture.png" Height="24" Width="24" />
+							</AppBarButton.Icon>
+						</AppBarButton>
+
+					</CommandBar.PrimaryCommands>
+					<CommandBar.SecondaryCommands>
+						<AppBarButton Label="About" Click="b3Click" Name="About" />
+						<AppBarButton Label="Sign out" Click="b4Click" Name="SignOut" />
+					</CommandBar.SecondaryCommands>
+				</CommandBar>
+			</Grid>
+		</Border>
+
+		<StackPanel Grid.Row="1">
+			<TextBlock x:Name="req11" Text="&#x2022; CommandBarForeground/AppBarEllipsisButtonForeground - Should have red ellipsis button foreground. AppBarEllipsisButtonForeground is ignored for some reason (as per UWP)" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+			<TextBlock x:Name="req12" Text="&#x2022; AppBarEllipsisButtonForegroundPointerOver - Should have orange ellipsis button when hovered" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+			<TextBlock x:Name="req13" Text="&#x2022; AppBarEllipsisButtonForegroundPressed - Should have blue  ellipsis button when pressed" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+			<TextBlock x:Name="req21" Text="&#x2022; AppBarButtonForeground - Should have green menu buttons (incl. secondary menu)" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+			<TextBlock x:Name="req22" Text="&#x2022; AppBarButtonForegroundPointerOver -  Should have Cyan menu buttons when hovered (incl. secondary menu)" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+			<TextBlock x:Name="req23" Text="&#x2022; AppBarButtonForegroundPressed -  Should have white menu buttons when pressed (incl. secondary menu)" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+			<TextBlock x:Name="req3" Text="&#x2022; Icons should be centered, with ellipsis alligned horizontally" Margin="20,20,20,0" FontSize="16" TextWrapping="Wrap" />
+		</StackPanel>
+
+		<Border Name="TappedBorder" Grid.Row="2" HorizontalAlignment="Center" Padding="16" BorderThickness="1" BorderBrush="Moccasin" Visibility="Collapsed">
+			<TextBlock Name="TappedText" Text="Tapped" Margin="20" FontSize="30" TextWrapping="Wrap" />
+		</Border>
+	</Grid>
+</Page>

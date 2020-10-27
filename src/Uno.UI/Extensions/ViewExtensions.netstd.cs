@@ -97,6 +97,7 @@ namespace Uno.UI
 					.Append(uiElement?.Clip != null ? $" Clip={uiElement.Clip.Rect}" : "")
 					.Append(uiElement?.NeedsClipToSlot ?? false ? " CLIPPED_TO_SLOT" : "")
 					.Append(innerView is TextBlock textBlock ? $" Text=\"{textBlock.Text}\"" : "")
+					.Append(fe != null && fe.Background != null ? $" Background={fe.Background}" : "")
 					.AppendLine();
 			}
 		}

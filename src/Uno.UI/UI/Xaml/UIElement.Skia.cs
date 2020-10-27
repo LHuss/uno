@@ -86,7 +86,7 @@ namespace Windows.UI.Xaml
 
 				return _visual;
 			}
-		} 
+		}
 
 		/// <summary>
 		/// The origin of the view's bounds relative to its parent.
@@ -290,5 +290,9 @@ namespace Windows.UI.Xaml
 
 		partial void HideVisual()
 			=> Visual.IsVisible = false;
+
+#if DEBUG
+		protected string ShowLocalVisualTree() => this.ShowLocalVisualTree(100);
+#endif
 	}
 }
